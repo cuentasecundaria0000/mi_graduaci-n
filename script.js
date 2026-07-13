@@ -1,8 +1,19 @@
+/* =========================================================
+   CONFIGURACIÓN PRINCIPAL
+   Aquí puedes cambiar fácilmente fecha, WhatsApp y fotografías.
+========================================================= */
+
 const CONFIG = {
     eventDate: "July 17, 2026 15:30:00",
     whatsappNumber: "5210000000000",
-    openingDelay: 1850
+    openingDelay: 1850,
+
+    
 };
+
+/* =========================================================
+   ELEMENTOS PRINCIPALES
+========================================================= */
 
 const welcomeScreen = document.getElementById("welcomeScreen");
 const envelopeWrapper = document.getElementById("envelopeWrapper");
@@ -16,26 +27,59 @@ const musicIcon = document.getElementById("musicIcon");
 
 let invitationOpened = false;
 
+/* =========================================================
+   APERTURA DEL SOBRE
+========================================================= */
+
 function openInvitation() {
     if (invitationOpened) return;
 
     invitationOpened = true;
-    envelopeWrapper.classList.add("open");
+
+    if (envelopeWrapper) {
+        envelopeWrapper.classList.add("open");
+    }
 
     setTimeout(() => {
-        welcomeScreen.classList.add("hidden");
-        invitationContent.classList.add("visible");
+        if (welcomeScreen) {
+            welcomeScreen.classList.add("hidden");
+        }
+
+        if (invitationContent) {
+            invitationContent.classList.add("visible");
+        }
+
         document.body.style.overflow = "auto";
         tryPlayMusic();
     }, CONFIG.openingDelay);
 }
 
-openInvitationButton.addEventListener("click", (event) => {
-    event.stopPropagation();
-    openInvitation();
-});
+if (openInvitationButton) {
+    openInvitationButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        openInvitation();
+    });
+}
 
-envelopeWrapper.addEventListener("click", openInvitation);
+if (envelopeWrapper) {
+    envelopeWrapper.addEventListener("click", openInvitation);
+}
+
+/* =========================================================
+   MÚSICA
+========================================================= */
+
+function updateMusicButton(isPlaying) {
+    if (musicText) {
+        musicText.textContent = isPlaying
+            ? "Pausar música"
+            : "Reproducir música";
+    }
+
+    if (musicIcon) {
+        musicIcon.textContent = isPlaying ? "❚❚" : "♫";
+    }
+}
 
 function tryPlayMusic() {
     if (!music) return;
@@ -47,33 +91,42 @@ function tryPlayMusic() {
         .catch(() => updateMusicButton(false));
 }
 
-function updateMusicButton(isPlaying) {
-    musicText.textContent = isPlaying ? "Pausar música" : "Reproducir música";
-    musicIcon.textContent = isPlaying ? "❚❚" : "♫";
+if (musicButton && music) {
+    musicButton.addEventListener("click", () => {
+        if (music.paused) {
+            music.play()
+                .then(() => updateMusicButton(true))
+                .catch(() => updateMusicButton(false));
+        } else {
+            music.pause();
+            updateMusicButton(false);
+        }
+    });
 }
 
-musicButton.addEventListener("click", () => {
-    if (music.paused) {
-        music.play()
-            .then(() => updateMusicButton(true))
-            .catch(() => updateMusicButton(false));
-    } else {
-        music.pause();
-        updateMusicButton(false);
-    }
-});
+/* =========================================================
+   CONTADOR
+========================================================= */
 
-/* CONTADOR */
 const eventTime = new Date(CONFIG.eventDate).getTime();
 
 function updateCountdown() {
+    const countdown = document.getElementById("countdown");
+    const countdownMessage = document.getElementById("countdownMessage");
+
     const now = Date.now();
     const distance = eventTime - now;
 
     if (distance <= 0) {
-        document.getElementById("countdown").style.display = "none";
-        document.getElementById("countdownMessage").textContent =
-            "¡Llegó el gran día! Gracias por celebrar conmigo.";
+        if (countdown) {
+            countdown.style.display = "none";
+        }
+
+        if (countdownMessage) {
+            countdownMessage.textContent =
+                "¡Llegó el gran día! Gracias por celebrar conmigo.";
+        }
+
         return;
     }
 
@@ -82,16 +135,29 @@ function updateCountdown() {
     const minutes = Math.floor((distance / (1000 * 60)) % 60);
     const seconds = Math.floor((distance / 1000) % 60);
 
-    document.getElementById("days").textContent = String(days).padStart(2, "0");
-    document.getElementById("hours").textContent = String(hours).padStart(2, "0");
-    document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
-    document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+    const values = {
+        days,
+        hours,
+        minutes,
+        seconds
+    };
+
+    Object.entries(values).forEach(([id, value]) => {
+        const element = document.getElementById(id);
+
+        if (element) {
+            element.textContent = String(value).padStart(2, "0");
+        }
+    });
 }
 
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-/* ANIMACIONES AL DESPLAZARSE */
+/* =========================================================
+   ANIMACIONES AL DESPLAZARSE
+========================================================= */
+
 const observer = new IntersectionObserver(
     (entries) => {
         entries.forEach((entry) => {
@@ -104,35 +170,61 @@ const observer = new IntersectionObserver(
     { threshold: 0.16 }
 );
 
-document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
-
-/* CONFIRMACIÓN POR WHATSAPP */
-const rsvpForm = document.getElementById("rsvpForm");
-
-rsvpForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    const name = document.getElementById("name").value.trim();
-    const attendance = document.getElementById("attendance").value;
-    const guests = document.getElementById("guests").value;
-    const message = document.getElementById("messageText").value.trim();
-
-    const text = [
-        "Hola, quiero confirmar mi asistencia a la graduación.",
-        "",
-        `Nombre: ${name}`,
-        `Respuesta: ${attendance}`,
-        `Número de personas: ${guests}`,
-        message ? `Mensaje: ${message}` : ""
-    ]
-        .filter(Boolean)
-        .join("\n");
-
-    const url = `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
-    window.open(url, "_blank", "noopener");
+document.querySelectorAll(".reveal").forEach((element) => {
+    observer.observe(element);
 });
 
-/* PÉTALOS DECORATIVOS */
+/* =========================================================
+   GALERÍA AUTOMÁTICA
+========================================================= */
+
+function createGallery() {
+    const gallery = document.getElementById("gallery");
+
+    if (!gallery) return;
+
+    gallery.innerHTML = "";
+
+    CONFIG.photos.forEach((photo, index) => {
+        const figure = document.createElement("figure");
+        figure.className = "gallery-item";
+
+        /*
+         * Estas clases crean una distribución elegante.
+         * No tienes que modificarlas.
+         */
+        if (index === 0) {
+            figure.classList.add("tall");
+        }
+
+        if (index === 3) {
+            figure.classList.add("wide");
+        }
+
+        const image = document.createElement("img");
+
+        image.src = photo;
+        image.alt = `Fotografía de graduación ${index + 1}`;
+        image.loading = "lazy";
+
+        /*
+         * Si una imagen no existe, se oculta para no dejar un cuadro roto.
+         */
+        image.addEventListener("error", () => {
+            figure.remove();
+        });
+
+        figure.appendChild(image);
+        gallery.appendChild(figure);
+    });
+}
+
+createGallery();
+
+/* =========================================================
+   PÉTALOS DECORATIVOS
+========================================================= */
+
 function createPetal() {
     if (document.hidden) return;
 
@@ -151,39 +243,53 @@ function createPetal() {
     petal.style.opacity = `${0.25 + Math.random() * 0.45}`;
 
     document.body.appendChild(petal);
-    setTimeout(() => petal.remove(), duration * 1000);
+
+    setTimeout(() => {
+        petal.remove();
+    }, duration * 1000);
 }
 
 setInterval(createPetal, 900);
-/* nombre de enlaces */
+
+/* =========================================================
+   DATOS PERSONALIZADOS DEL INVITADO
+   Ejemplo:
+   ?invitado=Familia%20García&pases=4&mesa=5
+========================================================= */
+
 const params = new URLSearchParams(window.location.search);
 
 const invitedGuest = params.get("invitado");
 const invitedPasses = params.get("pases");
 const invitedTable = params.get("mesa");
 
+/* El nombre aparece en todos los elementos con class="guestName" */
 const guestNameElements = document.querySelectorAll(".guestName");
-const guestPassesElement = document.getElementById("guestPasses");
-const peopleWordElement = document.getElementById("peopleWord");
-const guestTableElement = document.getElementById("guestTable");
-const tableTextElement = document.getElementById("tableText");
 
 if (invitedGuest) {
-
-    guestNameElements.forEach(element => {
+    guestNameElements.forEach((element) => {
         element.textContent = invitedGuest;
     });
-
 }
+
+/* Pases */
+const guestPassesElement = document.getElementById("guestPasses");
+const peopleWordElement = document.getElementById("peopleWord");
 
 if (invitedPasses && guestPassesElement) {
     const passes = Math.max(1, Number(invitedPasses) || 1);
+
     guestPassesElement.textContent = passes;
 
     if (peopleWordElement) {
-        peopleWordElement.textContent = passes === 1 ? "persona" : "personas";
+        peopleWordElement.textContent =
+            passes === 1 ? "persona" : "personas";
     }
 }
+
+/* Mesa */
+const guestTableElement = document.getElementById("guestTable");
+const tableTextElement = document.getElementById("tableText");
 
 if (invitedTable && guestTableElement && tableTextElement) {
     guestTableElement.textContent = invitedTable;
