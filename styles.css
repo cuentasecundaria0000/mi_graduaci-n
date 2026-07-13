@@ -1272,7 +1272,7 @@ body{background:radial-gradient(circle at 12% 8%,rgba(123,16,24,.08),transparent
 
 /* Solo el nombre Claritza Kristell queda en cursiva elegante */
 .graduate-name {
-    font-family: "Great Vibes", cursive !important;
+    font-family: "Parisienne", cursive !important;
     font-style: normal;
     font-weight: 400 !important;
     font-size: clamp(3.2rem, 10vw, 7rem);
