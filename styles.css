@@ -19,13 +19,16 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 body {
     font-family: "Montserrat", sans-serif;
     color: var(--text);
     background: var(--cream);
+
     overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 button,
