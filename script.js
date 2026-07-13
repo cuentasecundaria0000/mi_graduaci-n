@@ -162,14 +162,18 @@ const invitedGuest = params.get("invitado");
 const invitedPasses = params.get("pases");
 const invitedTable = params.get("mesa");
 
-const guestNameElement = document.getElementById("guestName");
+const guestNameElements = document.querySelectorAll(".guestName");
 const guestPassesElement = document.getElementById("guestPasses");
 const peopleWordElement = document.getElementById("peopleWord");
 const guestTableElement = document.getElementById("guestTable");
 const tableTextElement = document.getElementById("tableText");
 
-if (invitedGuest && guestNameElement) {
-    guestNameElement.textContent = invitedGuest;
+if (invitedGuest) {
+
+    guestNameElements.forEach(element => {
+        element.textContent = invitedGuest;
+    });
+
 }
 
 if (invitedPasses && guestPassesElement) {
