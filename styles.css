@@ -945,8 +945,8 @@ img {
 
     .section-card p,
     .rsvp-card p {
-        font-size: 0.9rem;
-        line-height: 1.75;
+         font-size: 1.08rem;
+    line-height: 1.9;
     }
 
     /* CONTADOR */
