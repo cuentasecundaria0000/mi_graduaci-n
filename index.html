@@ -3,55 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Invitación digital de graduación">
-    <title>Mi Graduación</title>
 
+    <title>Mi Graduación | Claritza Kristell</title>
+    <meta name="description" content="Invitación digital de graduación de Claritza Kristell">
+
+    <!-- VISTA PREVIA AL COMPARTIR -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Mi Graduación | Estás invitado">
+    <meta property="og:description" content="Acompáñame a celebrar este momento tan especial.">
+
+    <!-- CAMBIA ESTAS DOS DIRECCIONES CUANDO PUBLIQUES EN GITHUB PAGES -->
+    <meta property="og:image" content="https://TU-USUARIO.github.io/invitacion-graduacion/img/vista-previa.jpg">
+    <meta property="og:url" content="https://TU-USUARIO.github.io/invitacion-graduacion/">
+
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- FUENTES -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <!-- VISTA PREVIA AL COMPARTIR -->
-<meta property="og:type" content="website">
 
-<meta property="og:title"
-      content="Mi Graduación | Estás invitado">
-
-<meta property="og:description"
-      content="Acompáñame a celebrar este momento tan especial.">
-
-<meta property="og:image"
-      content="https://TU-USUARIO.github.io/invitacion-graduacion/img/portada.jpeg">
-
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-
-<meta property="og:url"
-      content="https://TU-USUARIO.github.io/invitacion-graduacion/">
-
-<meta name="twitter:card" content="summary_large_image">
     <!-- MÚSICA -->
     <audio id="backgroundMusic" preload="none" loop>
         <source src="audio/musica.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- SOBRE DE ENTRADA -->
+    <!-- SOBRE -->
     <section class="welcome-screen" id="welcomeScreen">
         <div class="floating-petals" aria-hidden="true"></div>
 
         <div class="envelope-area">
-              <p class="welcome-small">Invitación para:</p>
-                <h1 class="guest-name" class="guestName">Nuestro invitado especial</h1>
-            <small>Toca para abrir</small>
+            <p class="welcome-small">Invitación para:</p>
+
+            <!-- La clase guestName permite repetir el nombre en varios lugares -->
+            <h1 class="guest-name guestName">
+                Nuestro invitado especial
+            </h1>
+
+            <small class="touch-text">Toca el sello para abrir</small>
 
             <div class="envelope-wrapper" id="envelopeWrapper">
                 <div class="envelope">
                     <div class="letter">
                         <span class="flower-icon">✿</span>
                         <p>Te invito a celebrar</p>
-                        <strong>Mi Graduación</strong>
-                        
+                        <strong class="script-title">Mi Graduación</strong>
                     </div>
 
                     <div class="envelope-back"></div>
@@ -60,7 +63,11 @@
                     <div class="envelope-front-bottom"></div>
                     <div class="flap"></div>
 
-                    <button class="seal" id="openInvitation" aria-label="Abrir invitación">
+                    <button
+                        class="seal"
+                        id="openInvitation"
+                        type="button"
+                        aria-label="Abrir invitación">
                         ✿
                     </button>
                 </div>
@@ -74,21 +81,26 @@
         <!-- PORTADA -->
         <section class="hero">
             <div class="hero-overlay"></div>
-            <div class="floral-corner floral-top-left"></div>
-            <div class="floral-corner floral-bottom-right"></div>
 
             <div class="hero-content reveal">
                 <p class="eyebrow">Después de años de esfuerzo</p>
-                <h2>¡Me gradúo!</h2>
+
+                <h2 class="script-heading">¡Me gradúo!</h2>
+
                 <div class="gold-line"></div>
-                <h1>Claritza Kristell Esteban De La Cruz</h1>
+
+                <h1 class="graduate-name">
+                    Claritza Kristell<br>
+                    Esteban De La Cruz
+                </h1>
+
                 <p class="career">Licenciada en Educación Primaria</p>
                 <p class="hero-date">17 de julio de 2026</p>
 
-                 <button class="music-button" id="musicButton" type="button">
-                  <!--<span id="musicIcon">♫</span>
-                    <span id="musicText">Reproducir música</span>--> 
-                </button> 
+                <button class="music-button" id="musicButton" type="button">
+                    <span id="musicIcon">♫</span>
+                    <span id="musicText">Reproducir música</span>
+                </button>
             </div>
 
             <a class="scroll-indicator" href="#message" aria-label="Continuar">
@@ -100,28 +112,40 @@
         <section class="section message-section" id="message">
             <div class="section-card reveal">
                 <span class="section-flower">❀</span>
+
                 <p class="section-label">Con enorme alegría</p>
-                <h2>Quiero compartir contigo este gran logro</h2>
+
+                <h2 class="script-heading">
+                    Quiero compartir contigo este gran logro
+                </h2>
+
                 <p>
                     Después de tanto esfuerzo, aprendizajes y momentos inolvidables,
                     ha llegado el día de celebrar el cierre de una etapa y el comienzo
                     de nuevos sueños.
                 </p>
+
                 <p class="highlight-text">
                     Tu presencia hará que este momento sea aún más especial.
                 </p>
-                <p class="welcome-small">Invitación para:</p>
-<h1 class="guest-name" class="guestName">Nuestro invitado especial</h1>
 
-<p>
-    Invitación válida para
-    <strong id="guestPasses">1</strong>
-    <span id="peopleWord">persona</span>.
-</p>
+                <div class="guest-information">
+                    <p class="welcome-small">Invitación para:</p>
 
-<p id="tableText" hidden>
-    Mesa: <strong id="guestTable"></strong>
-</p>
+                    <h3 class="guest-name guestName">
+                        Nuestro invitado especial
+                    </h3>
+
+                    <p>
+                        Invitación válida para
+                        <strong id="guestPasses">1</strong>
+                        <span id="peopleWord">persona</span>.
+                    </p>
+
+                    <p id="tableText" hidden>
+                        Mesa: <strong id="guestTable"></strong>
+                    </p>
+                </div>
             </div>
         </section>
 
@@ -129,54 +153,54 @@
         <section class="section countdown-section">
             <div class="reveal">
                 <p class="section-label">Faltan</p>
-                
 
                 <div class="countdown" id="countdown">
                     <div class="time-box">
                         <span id="days">00</span>
                         <small>Días</small>
                     </div>
+
                     <div class="time-box">
                         <span id="hours">00</span>
                         <small>Horas</small>
                     </div>
+
                     <div class="time-box">
                         <span id="minutes">00</span>
                         <small>Minutos</small>
                     </div>
+
                     <div class="time-box">
                         <span id="seconds">00</span>
                         <small>Segundos</small>
                     </div>
-                    
                 </div>
-                <h2>Para nuestra celebración</h2>
+
+                <h2 class="script-heading countdown-title">
+                    Para nuestra celebración
+                </h2>
 
                 <p id="countdownMessage" class="countdown-message"></p>
             </div>
         </section>
 
-        <!-- DATOS DEL EVENTO 
+        <!-- RECEPCIÓN -->
         <section class="section event-section">
-            <div class="event-grid">
-                <article class="event-card reveal">
-                    <span class="event-icon">🎓</span>
-                    <h3>Ceremonia</h3>
-                    <p class="event-date">Sábado 17 de julio de 2026</p>
-                    <p>10:30 p. m.</p>
-                    <p>Universidad / Auditorio</p>
-                    <a class="primary-button" href="https://maps.google.com/" target="_blank" rel="noopener">
-                        Ver ubicación
-                    </a>
-                </article> -->
-
+            <div class="event-grid single-event">
                 <article class="event-card reveal">
                     <span class="event-icon">✿</span>
-                    <h3>Recepción</h3>
-                    <p class="event-date">Sábado 17 de julio de 2026</p>
+
+                    <h3 class="script-heading">Recepción</h3>
+
+                    <p class="event-date">Viernes 17 de julio de 2026</p>
                     <p>3:30 p. m.</p>
-                    <p>pob. Mazateupa -Calle baltazar-<br>despúes del casino al fondo, casa amarilla</p>
-                    <a class="primary-button" href="https://maps.app.goo.gl/3hZRBDgZvy63nsXK6" target="_blank" rel="noopener">
+                    <p>Calle Baltazar, casa amarilla</p>
+
+                    <a
+                        class="primary-button"
+                        href="https://maps.app.goo.gl/3hZRBDgZvy63nsXK6"
+                        target="_blank"
+                        rel="noopener">
                         Ver ubicación
                     </a>
                 </article>
@@ -187,41 +211,46 @@
         <section class="section timeline-section">
             <div class="section-heading reveal">
                 <p class="section-label">Programa</p>
-                <h2>Itinerario</h2>
+                <h2 class="script-heading">Itinerario</h2>
             </div>
 
             <div class="timeline">
                 <div class="timeline-item reveal">
                     <div class="timeline-dot"></div>
-                    <div class="timeline-time">10:30 p. m.</div>
+                    <div class="timeline-time">10:30 a. m.</div>
+
                     <div class="timeline-content">
                         <h3>Ceremonia de graduación</h3>
-                        <p>Entrega de documentos y Ceremonia oficial.</p>
+                        <p>Entrega de documentos y ceremonia oficial.</p>
                     </div>
                 </div>
 
                 <div class="timeline-item reveal">
                     <div class="timeline-dot"></div>
                     <div class="timeline-time">3:30 p. m.</div>
+
                     <div class="timeline-content">
                         <h3>Recepción de invitados</h3>
-                        <p>Bienvenida en el lugar de eventos.</p>
+                        <p>Bienvenida en el lugar del evento.</p>
                     </div>
                 </div>
 
                 <div class="timeline-item reveal">
                     <div class="timeline-dot"></div>
                     <div class="timeline-time">5:00 p. m.</div>
+
                     <div class="timeline-content">
                         <h3>Celebración</h3>
-                        <p>momentos llena de recuerdos.</p>
+                        <p>Una tarde llena de alegría y recuerdos inolvidables.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- GALERÍA -->
-        <section class="section gallery-section">
+        <!-- GALERÍA
+             Las fotos se cargan desde CONFIG.photos en script.js.
+             Para cambiarlas solo modifica esa lista. -->
+         <section class="section gallery-section">
             <div class="section-heading reveal">
                 <p class="section-label">Recuerdos</p>
                 <h2>Mi camino hasta aquí</h2>
@@ -243,68 +272,15 @@
             </div>
         </section>
 
-        <!-- VESTIMENTA 
-        <section class="section dress-section">
-            <div class="section-card reveal">
-                <span class="section-flower">✿</span>
-                <p class="section-label">Código de vestimenta</p>
-                <h2>Formal</h2>
-                <p>
-                    Nos encantará verte elegante para compartir esta noche tan especial.
-                </p>
-                <div class="color-palette" aria-label="Paleta sugerida">
-                    <span class="color color-1"></span>
-                    <span class="color color-2"></span>
-                    <span class="color color-3"></span>
-                    <span class="color color-4"></span>
-                </div>
-            </div>
-        </section> -->
-
-        <!-- CONFIRMACIÓN
-        <section class="section rsvp-section" id="confirmar">
-            <div class="rsvp-card reveal">
-                <p class="section-label">Confirmación</p>
-                <h2>¿Nos acompañas?</h2>
-                <p>Confirma tu asistencia antes del 10 de julio de 2026.</p>
-
-                <form id="rsvpForm">
-                    <div class="form-group">
-                        <label for="name">Nombre</label>
-                        <input type="text" id="name" name="name" placeholder="Escribe tu nombre" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="attendance">Asistencia</label>
-                        <select id="attendance" name="attendance" required>
-                            <option value="">Selecciona una opción</option>
-                            <option value="Sí asistiré">Sí asistiré</option>
-                            <option value="No podré asistir">No podré asistir</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="guests">Número de personas</label>
-                        <input type="number" id="guests" name="guests" min="1" max="10" value="1">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="messageText">Mensaje</label>
-                        <textarea id="messageText" name="message" rows="4" placeholder="Escribe un mensaje opcional"></textarea>
-                    </div>
-
-                    <button class="primary-button form-button" type="submit">
-                        Confirmar por WhatsApp
-                    </button>
-                </form>
-            </div>
-        </section> -->
-
         <!-- DESPEDIDA -->
         <footer class="footer">
             <div class="footer-flower">❀</div>
-            <h2>Gracias por formar parte de esta historia</h2>
-            <p>Con cariño, Lic. Claritza Kristell❤️</p>
+
+            <h2 class="script-heading">
+                Gracias por formar parte de esta historia
+            </h2>
+
+            <p>Con cariño, Lic. Claritza Kristell ❤️</p>
             <small>Graduación 2026</small>
         </footer>
     </main>
