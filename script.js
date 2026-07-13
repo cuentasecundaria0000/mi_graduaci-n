@@ -1,26 +1,58 @@
-// Siempre iniciar desde arriba
+/* =========================================================
+   SIEMPRE INICIAR DESDE ARRIBA
+========================================================= */
+
 if ("scrollRestoration" in history) {
     history.scrollRestoration = "manual";
 }
 
-window.addEventListener("load", () => {
+function irAlInicio() {
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+
     window.scrollTo({
         top: 0,
         left: 0,
         behavior: "auto"
     });
+}
+
+/* Ejecutar inmediatamente */
+irAlInicio();
+
+/* Cuando el HTML esté cargado */
+document.addEventListener("DOMContentLoaded", () => {
+    irAlInicio();
+
+    document.body.style.overflowX = "hidden";
+    document.body.style.overflowY = "hidden";
 });
+
+/* Cuando terminen de cargar imágenes y recursos */
+window.addEventListener("load", () => {
+    irAlInicio();
+
+    requestAnimationFrame(irAlInicio);
+
+    setTimeout(irAlInicio, 50);
+    setTimeout(irAlInicio, 200);
+    setTimeout(irAlInicio, 500);
+});
+
+/* También al regresar con el botón Atrás */
+window.addEventListener("pageshow", () => {
+    irAlInicio();
+    setTimeout(irAlInicio, 100);
+});
+
 /* =========================================================
    CONFIGURACIÓN PRINCIPAL
-   Aquí puedes cambiar fácilmente fecha, WhatsApp y fotografías.
 ========================================================= */
 
 const CONFIG = {
     eventDate: "July 17, 2026 15:30:00",
     whatsappNumber: "5210000000000",
-    openingDelay: 1850,
-
-    
+    openingDelay: 1850
 };
 
 /* =========================================================
@@ -46,6 +78,7 @@ let invitationOpened = false;
 function openInvitation() {
     if (invitationOpened) return;
 
+    irAlInicio();
     invitationOpened = true;
 
     if (envelopeWrapper) {
@@ -61,7 +94,10 @@ function openInvitation() {
             invitationContent.classList.add("visible");
         }
 
-        document.body.style.overflow = "auto";
+        document.body.style.overflowX = "hidden";
+        document.body.style.overflowY = "auto";
+
+        irAlInicio();
         tryPlayMusic();
     }, CONFIG.openingDelay);
 }
@@ -75,6 +111,27 @@ if (openInvitationButton) {
 
 if (envelopeWrapper) {
     envelopeWrapper.addEventListener("click", openInvitation);
+}
+
+/* =========================================================
+   FLECHA PARA BAJAR AL MENSAJE
+========================================================= */
+
+const scrollIndicator = document.querySelector(".scroll-indicator");
+
+if (scrollIndicator) {
+    scrollIndicator.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        const messageSection = document.getElementById("message");
+
+        if (messageSection) {
+            messageSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        }
+    });
 }
 
 /* =========================================================
@@ -99,16 +156,24 @@ function tryPlayMusic() {
     music.volume = 0.55;
 
     music.play()
-        .then(() => updateMusicButton(true))
-        .catch(() => updateMusicButton(false));
+        .then(() => {
+            updateMusicButton(true);
+        })
+        .catch(() => {
+            updateMusicButton(false);
+        });
 }
 
 if (musicButton && music) {
     musicButton.addEventListener("click", () => {
         if (music.paused) {
             music.play()
-                .then(() => updateMusicButton(true))
-                .catch(() => updateMusicButton(false));
+                .then(() => {
+                    updateMusicButton(true);
+                })
+                .catch(() => {
+                    updateMusicButton(false);
+                });
         } else {
             music.pause();
             updateMusicButton(false);
@@ -124,7 +189,8 @@ const eventTime = new Date(CONFIG.eventDate).getTime();
 
 function updateCountdown() {
     const countdown = document.getElementById("countdown");
-    const countdownMessage = document.getElementById("countdownMessage");
+    const countdownMessage =
+        document.getElementById("countdownMessage");
 
     const now = Date.now();
     const distance = eventTime - now;
@@ -142,10 +208,21 @@ function updateCountdown() {
         return;
     }
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((distance / (1000 * 60)) % 60);
-    const seconds = Math.floor((distance / 1000) % 60);
+    const days = Math.floor(
+        distance / (1000 * 60 * 60 * 24)
+    );
+
+    const hours = Math.floor(
+        (distance / (1000 * 60 * 60)) % 24
+    );
+
+    const minutes = Math.floor(
+        (distance / (1000 * 60)) % 60
+    );
+
+    const seconds = Math.floor(
+        (distance / 1000) % 60
+    );
 
     const values = {
         days,
@@ -158,7 +235,8 @@ function updateCountdown() {
         const element = document.getElementById(id);
 
         if (element) {
-            element.textContent = String(value).padStart(2, "0");
+            element.textContent =
+                String(value).padStart(2, "0");
         }
     });
 }
@@ -170,78 +248,41 @@ setInterval(updateCountdown, 1000);
    ANIMACIONES AL DESPLAZARSE
 ========================================================= */
 
-const observer = new IntersectionObserver(
-    (entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add("visible");
-                observer.unobserve(entry.target);
-            }
-        });
-    },
-    { threshold: 0.16 }
-);
-
-document.querySelectorAll(".reveal").forEach((element) => {
-    observer.observe(element);
-});
-
-/* =========================================================
-   GALERÍA AUTOMÁTICA
-========================================================= */
-
-function createGallery() {
-    const gallery = document.getElementById("gallery");
-
-    if (!gallery) return;
-
-    gallery.innerHTML = "";
-
-    CONFIG.photos.forEach((photo, index) => {
-        const figure = document.createElement("figure");
-        figure.className = "gallery-item";
-
-        /*
-         * Estas clases crean una distribución elegante.
-         * No tienes que modificarlas.
-         */
-        if (index === 0) {
-            figure.classList.add("tall");
+if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                    observer.unobserve(entry.target);
+                }
+            });
+        },
+        {
+            threshold: 0.16
         }
+    );
 
-        if (index === 3) {
-            figure.classList.add("wide");
-        }
-
-        const image = document.createElement("img");
-
-        image.src = photo;
-        image.alt = `Fotografía de graduación ${index + 1}`;
-        image.loading = "lazy";
-
-        /*
-         * Si una imagen no existe, se oculta para no dejar un cuadro roto.
-         */
-        image.addEventListener("error", () => {
-            figure.remove();
-        });
-
-        figure.appendChild(image);
-        gallery.appendChild(figure);
+    document.querySelectorAll(".reveal").forEach((element) => {
+        observer.observe(element);
+    });
+} else {
+    document.querySelectorAll(".reveal").forEach((element) => {
+        element.classList.add("visible");
     });
 }
 
-createGallery();
-
 /* =========================================================
-   PÉTALOS DECORATIVOS
+   FLORES DECORATIVAS CAYENDO
 ========================================================= */
 
 function createPetal() {
     if (document.hidden) return;
 
     const petal = document.createElement("span");
+
     petal.className = "petal";
+    petal.setAttribute("aria-hidden", "true");
 
     const left = Math.random() * 100;
     const duration = 7 + Math.random() * 7;
@@ -252,7 +293,8 @@ function createPetal() {
     petal.style.animationDuration = `${duration}s`;
     petal.style.setProperty("--drift", drift);
     petal.style.transform = `scale(${scale})`;
-    petal.style.opacity = `${0.25 + Math.random() * 0.45}`;
+    petal.style.opacity =
+        `${0.25 + Math.random() * 0.45}`;
 
     document.body.appendChild(petal);
 
@@ -265,6 +307,7 @@ setInterval(createPetal, 900);
 
 /* =========================================================
    DATOS PERSONALIZADOS DEL INVITADO
+
    Ejemplo:
    ?invitado=Familia%20García&pases=4&mesa=5
 ========================================================= */
@@ -275,8 +318,9 @@ const invitedGuest = params.get("invitado");
 const invitedPasses = params.get("pases");
 const invitedTable = params.get("mesa");
 
-/* El nombre aparece en todos los elementos con class="guestName" */
-const guestNameElements = document.querySelectorAll(".guestName");
+/* Nombre del invitado en varios lugares */
+const guestNameElements =
+    document.querySelectorAll(".guestName");
 
 if (invitedGuest) {
     guestNameElements.forEach((element) => {
@@ -284,12 +328,16 @@ if (invitedGuest) {
     });
 }
 
-/* Pases */
-const guestPassesElement = document.getElementById("guestPasses");
-const peopleWordElement = document.getElementById("peopleWord");
+/* Número de pases */
+const guestPassesElement =
+    document.getElementById("guestPasses");
+
+const peopleWordElement =
+    document.getElementById("peopleWord");
 
 if (invitedPasses && guestPassesElement) {
-    const passes = Math.max(1, Number(invitedPasses) || 1);
+    const passes =
+        Math.max(1, Number(invitedPasses) || 1);
 
     guestPassesElement.textContent = passes;
 
@@ -299,11 +347,18 @@ if (invitedPasses && guestPassesElement) {
     }
 }
 
-/* Mesa */
-const guestTableElement = document.getElementById("guestTable");
-const tableTextElement = document.getElementById("tableText");
+/* Número de mesa */
+const guestTableElement =
+    document.getElementById("guestTable");
 
-if (invitedTable && guestTableElement && tableTextElement) {
+const tableTextElement =
+    document.getElementById("tableText");
+
+if (
+    invitedTable &&
+    guestTableElement &&
+    tableTextElement
+) {
     guestTableElement.textContent = invitedTable;
     tableTextElement.hidden = false;
 }
