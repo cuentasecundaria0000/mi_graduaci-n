@@ -143,7 +143,7 @@ img {
 .letter {
     position: absolute;
     left: 7%;
-    bottom: 15px;
+    bottom: -10px;
     z-index: 3;
     display: grid;
     place-items: center;
@@ -1335,5 +1335,257 @@ body{background:radial-gradient(circle at 12% 8%,rgba(123,16,24,.08),transparent
 
     .graduate-name {
         font-size: clamp(2.8rem, 13vw, 5rem);
+    }
+}
+
+
+/* ==========================================================
+   DECORACIÓN FLORAL INTENSA EN CADA SECCIÓN Y CONTENEDOR
+   Se agrega al final para conservar todo el formato actual.
+========================================================== */
+
+/* Asegura que los contenedores puedan sostener flores decorativas */
+.section,
+.section-card,
+.event-card,
+.timeline-content,
+.gallery-section,
+.countdown-section,
+.footer,
+.hero,
+.letter,
+.rsvp-card {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Flores de esquina para cada sección principal */
+.section::before,
+.section::after,
+.gallery-section::before,
+.gallery-section::after,
+.countdown-section::before,
+.countdown-section::after,
+.footer::before,
+.footer::after {
+    position: absolute;
+    z-index: 1;
+    color: rgba(198, 40, 40, 0.72);
+    font-family: Georgia, serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    line-height: 1;
+    pointer-events: none;
+    text-shadow:
+        0 2px 6px rgba(127, 0, 0, 0.16),
+        18px 10px 0 rgba(200, 161, 93, 0.28),
+        35px 25px 0 rgba(159, 17, 24, 0.26);
+}
+
+.section::before,
+.gallery-section::before,
+.countdown-section::before,
+.footer::before {
+    content: "✿";
+    top: 18px;
+    left: 18px;
+    transform: rotate(-18deg);
+}
+
+.section::after,
+.gallery-section::after,
+.countdown-section::after,
+.footer::after {
+    content: "❀";
+    right: 18px;
+    bottom: 18px;
+    transform: rotate(20deg);
+}
+
+/* Tarjetas con ramos rojos en las esquinas */
+.section-card::after,
+.event-card::after,
+.timeline-content::after,
+.rsvp-card::after,
+.letter::after {
+    content: "✿  ❀  ✿";
+    position: absolute;
+    z-index: 0;
+    right: -14px;
+    bottom: 10px;
+    color: rgba(198, 40, 40, 0.58);
+    font-family: Georgia, serif;
+    font-size: clamp(1.8rem, 4vw, 3.3rem);
+    letter-spacing: -0.25rem;
+    transform: rotate(-18deg);
+    pointer-events: none;
+    text-shadow:
+        -20px -14px 0 rgba(200, 161, 93, 0.30),
+        -38px -4px 0 rgba(159, 17, 24, 0.22);
+}
+
+.section-card::before,
+.event-card::before,
+.timeline-content::before,
+.rsvp-card::before,
+.letter::before {
+    content: "❀  ✿";
+    position: absolute;
+    z-index: 0;
+    top: 10px;
+    left: -8px;
+    width: auto;
+    height: auto;
+    margin: 0;
+    color: rgba(183, 28, 28, 0.48);
+    background: none;
+    font-family: Georgia, serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+    letter-spacing: -0.18rem;
+    transform: rotate(18deg);
+    pointer-events: none;
+    text-shadow:
+        18px 10px 0 rgba(200, 161, 93, 0.28),
+        34px -4px 0 rgba(198, 40, 40, 0.18);
+}
+
+/* Mantiene el contenido por encima de las flores */
+.section > *,
+.section-card > *,
+.event-card > *,
+.timeline-content > *,
+.gallery-section > *,
+.countdown-section > *,
+.footer > *,
+.rsvp-card > *,
+.letter > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* Marco floral suave alrededor de las fotos */
+.gallery-item {
+    position: relative;
+    border: 2px solid rgba(200, 161, 93, 0.42);
+    box-shadow:
+        0 16px 34px rgba(127, 0, 0, 0.16),
+        0 0 0 6px rgba(255, 248, 239, 0.72);
+}
+
+.gallery-item::before,
+.gallery-item::after {
+    position: absolute;
+    z-index: 3;
+    color: rgba(198, 40, 40, 0.84);
+    font-family: Georgia, serif;
+    font-size: 2rem;
+    pointer-events: none;
+    text-shadow: 0 2px 5px rgba(127, 0, 0, 0.18);
+}
+
+.gallery-item::before {
+    content: "✿";
+    top: 8px;
+    left: 10px;
+    transform: rotate(-18deg);
+}
+
+.gallery-item::after {
+    content: "❀";
+    right: 10px;
+    bottom: 8px;
+    transform: rotate(18deg);
+}
+
+/* Más flores en la portada, sin tapar el texto */
+.hero::before,
+.hero::after {
+    position: absolute;
+    z-index: 2;
+    color: rgba(255, 238, 228, 0.78);
+    font-family: Georgia, serif;
+    font-size: clamp(4rem, 10vw, 8rem);
+    line-height: 1;
+    pointer-events: none;
+    text-shadow:
+        30px 12px 0 rgba(198, 40, 40, 0.50),
+        54px 28px 0 rgba(200, 161, 93, 0.38);
+}
+
+.hero::before {
+    content: "✿";
+    top: 20px;
+    left: 22px;
+    transform: rotate(-20deg);
+}
+
+.hero::after {
+    content: "❀";
+    right: 22px;
+    bottom: 28px;
+    transform: rotate(22deg);
+}
+
+/* Flores pequeñas entre títulos */
+.section-heading::after,
+.guest-information::before {
+    content: "✿  ❀  ✿";
+    display: block;
+    margin: 16px auto 0;
+    color: #c62828;
+    font-size: 1.35rem;
+    letter-spacing: 0.45rem;
+    text-align: center;
+}
+
+/* Variación de las flores que caen */
+.petal:nth-child(3n)::before {
+    content: "❀";
+}
+
+.petal:nth-child(4n)::before {
+    content: "✾";
+}
+
+.petal:nth-child(5n)::before {
+    content: "✽";
+    color: #d4af68;
+}
+
+/* Ajustes móviles: flores más pequeñas y menos invasivas */
+@media (max-width: 768px) {
+    .section::before,
+    .section::after,
+    .gallery-section::before,
+    .gallery-section::after,
+    .countdown-section::before,
+    .countdown-section::after,
+    .footer::before,
+    .footer::after {
+        font-size: 2.6rem;
+        text-shadow:
+            12px 7px 0 rgba(200, 161, 93, 0.24),
+            24px 16px 0 rgba(159, 17, 24, 0.20);
+    }
+
+    .hero::before,
+    .hero::after {
+        font-size: 3.3rem;
+        text-shadow:
+            18px 8px 0 rgba(198, 40, 40, 0.40),
+            34px 20px 0 rgba(200, 161, 93, 0.30);
+    }
+
+    .section-card::after,
+    .event-card::after,
+    .timeline-content::after,
+    .rsvp-card::after,
+    .letter::after {
+        font-size: 1.8rem;
+        opacity: 0.78;
+    }
+
+    .gallery-item::before,
+    .gallery-item::after {
+        font-size: 1.45rem;
     }
 }
